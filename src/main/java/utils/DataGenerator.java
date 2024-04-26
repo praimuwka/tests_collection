@@ -6,9 +6,8 @@ import java.io.*;
 import java.util.*;
 
 public class DataGenerator {
-    private static final int RANDOM_STRING_SIZE = 10;
-    private static final int PRODUCTS_NUMBER = 1000;
-    public static final int FORMAT_DIGITS = String.valueOf(Math.abs(PRODUCTS_NUMBER)).replaceFirst("^0*", "").length();;
+    private static final int PRODUCTS_NUMBER = 10000;
+    public static final int FORMAT_DIGITS = String.valueOf(Math.abs(PRODUCTS_NUMBER)).replaceFirst("^0*", "").length();
     private static final int MIXES_NUMBER_RANGE = 7; // чтобы получить от 0 до 5 смесей
     public static final String COOK_BOOK_FILE_PATH = "./src/main/resources/CookBookDraft.txt";
     public static final String COOK_BOOK_DELIMITER = " - ";
