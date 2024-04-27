@@ -9,7 +9,7 @@ public class FileIOUtils {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             for (String string : strings) {
                 writer.write(string);
-                writer.newLine(); // Writes a new line after each string
+                writer.newLine();
             }
         }
     }
