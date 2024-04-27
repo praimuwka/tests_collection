@@ -9,9 +9,11 @@ import common.AbstractProduct;
  * Реализует логику добавления продукта в смесь, проверяя наличие циклических зависимостей.
  */
 public class Product extends AbstractProduct<Product> {
-    // Список асцендентных (восходящих) связей между продуктами
-    // Каждый i-тый список внутри ASCENDING_RELATIONS, хранит набор идентификаторов смесей, для которых i-тый продукт является ингридиентом
-    // Индекс списка смесей соответствует идентификатору продукта 
+    /**
+     * Список асцендентных (восходящих) связей между продуктами
+     * Каждый i-тый список внутри ASCENDING_RELATIONS, хранит набор идентификаторов смесей, для которых i-тый продукт является ингридиентом
+     * Индекс списка смесей соответствует идентификатору продукта
+     */
     private static final ArrayList<ArrayList<Integer>> ASCENDING_RELATIONS = new ArrayList<>();
     // Идентификатор продукта
     private int id;
@@ -60,8 +62,8 @@ public class Product extends AbstractProduct<Product> {
             return true;
         }
         visitedNodes.add(currentNode);
-        var mixesToCheck = ASCENDING_RELATIONS.get(currentNode);
-        for (var mixId : mixesToCheck) {
+        ArrayList<Integer> mixesToCheck = ASCENDING_RELATIONS.get(currentNode);
+        for (Integer mixId : mixesToCheck) {
             if (isMix(possibleMix, mixId, visitedNodes)) {
                 return true;
             }

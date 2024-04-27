@@ -5,6 +5,7 @@ import static utils.FileIOUtils.readStringsFromFile;
 
 import java.io.*;
 import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import common.AbstractProduct;
@@ -25,17 +26,17 @@ public class NomiaTask {
      */
     public static void main(String[] args) throws IOException {
         // Считывание данных о продуктах и их смесях из файла
-        var cookBookDraft = readStringsFromFile(COOK_BOOK_FILE_PATH);
+        List<String> cookBookDraft = readStringsFromFile(COOK_BOOK_FILE_PATH);
 
         // Создание списка имен продуктов
-        var productNames = cookBookDraft.stream()
+        ArrayList<String> productNames = cookBookDraft.stream()
             .map(p -> p.split(COOK_BOOK_DELIMITER)[0])
             .collect(Collectors.toCollection(ArrayList::new));
 
         // Создание списка смесей для каждого продукта
-        var productMixes = cookBookDraft.stream()
+        ArrayList<List<Integer>> productMixes = cookBookDraft.stream()
             .map(p -> {
-                var parts = p.split(COOK_BOOK_DELIMITER);
+                String[] parts = p.split(COOK_BOOK_DELIMITER);
                 if (parts.length < 2) {
                     return Collections.<Integer>emptyList();
                 }
@@ -46,12 +47,8 @@ public class NomiaTask {
             .collect(Collectors.toCollection(ArrayList::new));
 
         // Создание списков продуктов для двух разных подходов
-        var products1 = productNames.stream()
-            .map(approach1.Product::new)
-            .collect(Collectors.toCollection(ArrayList::new));
-        var products2 = productNames.stream()
-            .map(approach2.Product::new)
-            .collect(Collectors.toCollection(ArrayList::new));
+        ArrayList<approach1.Product> products1 = createProducts(approach1.Product::new, productNames);
+        ArrayList<approach2.Product> products2 = createProducts(approach2.Product::new, productNames);
 
         // Вывод общего количества продуктов
         System.out.println("\nВсего продуктов: " + productNames.size());
@@ -68,6 +65,16 @@ public class NomiaTask {
     }
 
     /**
+     * Создает список продуктов типа T, расширяющего AbstractProduct<T>, из списка строк.
+     * Каждая строка в входном списке преобразуется в продукт с использованием предоставленной функции маппера.
+     */
+    private static <T extends AbstractProduct<T>> ArrayList<T> createProducts(Function<? super String, ? extends T> mapper, List<String> productNames) {
+        return productNames.stream()
+            .map(mapper)
+            .collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    /**
      * Метод выполняет операции над продуктами, используя список смесей.
      * Для каждого продукта пытается добавить его в смеси, указанные в списке смесей, в качестве ингридиента.
      * Выводит статистику, которая включает в себя время выполнения алгоритма и количество успешных и потенциальных связей.
@@ -80,11 +87,11 @@ public class NomiaTask {
         int successCounter = 0;
         long startTime = System.nanoTime();
         for (int i = 0; i < products.size(); i++) {
-            var ingredient = products.get(i);
-            var mixes = mixesLists.get(i);
-            for (var mixIdx : mixes) {
-                var mix = products.get(mixIdx);
-                var res = mix.addProduct(ingredient); // пробуем добавить ингридиент в смесь
+            T ingredient = products.get(i);
+            List<Integer> mixes = mixesLists.get(i);
+            for (Integer mixIdx : mixes) {
+                T mix = products.get(mixIdx);
+                boolean res = mix.addProduct(ingredient); // пробуем добавить ингридиент в смесь
                 if (res) {
                     successCounter++;
                 }

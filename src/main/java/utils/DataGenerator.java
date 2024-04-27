@@ -52,10 +52,10 @@ public class DataGenerator {
      * @return строку с именем продукта и его смесями
      */
     public static String addRandomMixes(String product, int productIndex, int productsNumber) {
-        var mixesNum = RANDOM.nextInt(MIXES_NUMBER_RANGE) - 1;
+        int mixesNum = RANDOM.nextInt(MIXES_NUMBER_RANGE) - 1;
         ArrayList<String> mixes = new ArrayList<>();
         for (int i = 0; i < mixesNum; i++) {
-            var mixIdx = RANDOM.nextInt(productsNumber);
+            int mixIdx = RANDOM.nextInt(productsNumber);
             if (mixIdx != productIndex) {
                 mixes.add(mixIdx + "");
             }
