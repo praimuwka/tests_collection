@@ -29,11 +29,11 @@ public class Product extends AbstractProduct<Product> {
     }
 
     /**
-     * Добавляет продукт в смесь текущего продукта, если это возможно без создания циклической зависимости.
-     * Использует обход снизу вверх для проверки наличия циклической зависимости.
+     * Добавляет продукт в смесь текущего продукта, если это приведет к возникновению циклической зависимости.
+     * Использует обход снизу вверх для проверки наличия восходящего маршрута от текущего продута к добавляемому.
      *
      * @param ingredient продукт, который нужно добавить в смесь
-     * @return true, если продукт успешно добавлен, false в случае циклической зависимости
+     * @return true, если продукт успешно добавлен, false в случае угрозы циклической зависимости
      */
     public boolean addProduct(Product ingredient) {
         if (isMix(ingredient.id, this.id, new HashSet<>())) {
@@ -45,12 +45,12 @@ public class Product extends AbstractProduct<Product> {
     }
 
     /**
-     * Рекурсивно проверяет, является ли возможная смесь циклической.
+     * Рекурсивно проверяет, является продукт ингридиентом для смеси.
      *
      * @param possibleMix  идентификатор продукта - возможной смеси
-     * @param currentNode  текущий узел в графе отношений
+     * @param currentNode  текущий узел, потенциальный ингридиент
      * @param visitedNodes набор уже посещенных узлов
-     * @return true, если найдена циклическая зависимость, false в противном случае
+     * @return true, если найден маршрут от currentNode к possibleMix, false в противном случае
      */
     private static boolean isMix(Integer possibleMix, Integer currentNode, Set<Integer> visitedNodes) {
         if (visitedNodes.contains(currentNode)) {
