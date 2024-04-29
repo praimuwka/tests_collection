@@ -46,7 +46,7 @@ public class Product extends AbstractProduct<Product> {
      * @param visitedNodes набор уже посещенных продуктов
      * @return true, если продукт найден, false в противном случае
      */
-    public boolean contains(Product target, Set<Product> visitedNodes) {
+    private boolean contains(Product target, Set<Product> visitedNodes) {
         if (visitedNodes.contains(this)) {
             return false; // Если узел уже был посещен, не обходим его повторно
         }
