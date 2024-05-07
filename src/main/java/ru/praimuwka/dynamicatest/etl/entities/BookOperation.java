@@ -3,6 +3,8 @@ package ru.praimuwka.dynamicatest.etl.entities;
 import java.util.*;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -12,18 +14,21 @@ import javax.persistence.Table;
 @Table(name = "book_operations", schema = "public")
 public class BookOperation {
     @Id
-    @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
+    @Column(name = "borrowed_date", nullable = false)
+    private Date borrowedDate;
+    @Column(name = "returned_date")
+    private Date returnedDate;
+
     @ManyToOne
     @JoinColumn(name = "book_id", nullable = false)
     private Book book;
+
     @ManyToOne
     @JoinColumn(name = "client_id", nullable = false)
     private Client client;
-    @Column(name = "operation_date", nullable = false)
-    private Date operationDate;
-    @Column(name = "operation_type", nullable = false)
-    private String operationType;
 
     // Getters and Setters
     public Long getId() {
@@ -32,6 +37,22 @@ public class BookOperation {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Date getBorrowedDate() {
+        return borrowedDate;
+    }
+
+    public void setBorrowedDate(Date borrowedDate) {
+        this.borrowedDate = borrowedDate;
+    }
+
+    public Date getReturnedDate() {
+        return returnedDate;
+    }
+
+    public void setReturnedDate(Date returnedDate) {
+        this.returnedDate = returnedDate;
     }
 
     public Book getBook() {
@@ -48,21 +69,5 @@ public class BookOperation {
 
     public void setClient(Client client) {
         this.client = client;
-    }
-
-    public Date getOperationDate() {
-        return operationDate;
-    }
-
-    public void setOperationDate(Date operationDate) {
-        this.operationDate = operationDate;
-    }
-
-    public String getOperationType() {
-        return operationType;
-    }
-
-    public void setOperationType(String operationType) {
-        this.operationType = operationType;
     }
 }

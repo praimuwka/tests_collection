@@ -8,17 +8,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.praimuwka.dynamicatest.etl.entities.Book;
+import ru.praimuwka.dynamicatest.rest.models.BorrowedBookRestObject;
 import ru.praimuwka.dynamicatest.services.BookService;
 
 @RestController
-@RequestMapping("/api/books")
-public class BookController {
+@RequestMapping("/api")
+public class ApiController {
     @Autowired
     private BookService bookService;
 
-    @GetMapping("/getAll")
-    public ResponseEntity<List<Book>> getAllBooks() {
-        List<Book> books = bookService.getAllBooks();
-        return ResponseEntity.ok(books);
+    @GetMapping("/books/getAllBorrowed")
+    public ResponseEntity<List<BorrowedBookRestObject>> getAllBooks() {
+        return ResponseEntity.ok(bookService.getBorrowedBooks());
     }
 }

@@ -3,6 +3,8 @@ package ru.praimuwka.dynamicatest.etl.entities;
 import java.util.*;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -10,11 +12,12 @@ import javax.persistence.Table;
 @Table(name = "clients", schema = "public")
 public class Client {
     @Id
-    @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
-    @Column(name = "full_name", nullable = false)
+    @Column(name = "full_name", length = 255, nullable = false)
     private String fullName;
-    @Column(name = "birth_date", nullable = false)
+    @Column(name = "birth_date")
     private Date birthDate;
 
     // Getters and Setters

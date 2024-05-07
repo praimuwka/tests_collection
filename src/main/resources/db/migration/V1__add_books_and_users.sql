@@ -1,14 +1,14 @@
 -- Создание таблицы для хранения информации о книгах
-CREATE TABLE books
+CREATE TABLE IF NOT EXISTS books
 (
     id     SERIAL PRIMARY KEY,
-    title  VARCHAR(255)       NOT NULL,
-    author VARCHAR(255)       NOT NULL,
-    isbn   VARCHAR(13) UNIQUE NOT NULL
+    isbn   VARCHAR(13)  NOT NULL,
+    title  VARCHAR(255) NOT NULL,
+    author VARCHAR(255) NOT NULL
 );
 
 -- Создание таблицы для хранения информации о клиентах
-CREATE TABLE clients
+CREATE TABLE IF NOT EXISTS clients
 (
     id         SERIAL PRIMARY KEY,
     full_name  VARCHAR(255) NOT NULL,
@@ -16,11 +16,11 @@ CREATE TABLE clients
 );
 
 -- Создание таблицы для хранения информации о взятии и возвращении книг
-CREATE TABLE book_operations
+CREATE TABLE IF NOT EXISTS book_operations
 (
-    id             SERIAL PRIMARY KEY,
-    book_id        INTEGER REFERENCES books (id),
-    client_id      INTEGER REFERENCES clients (id),
-    operation_date DATE        NOT NULL,
-    operation_type VARCHAR(50) NOT NULL -- 'borrowed' или 'returned'
+    id            SERIAL PRIMARY KEY,
+    book_id       INTEGER REFERENCES books (id),
+    client_id     INTEGER REFERENCES clients (id),
+    borrowed_date DATE NOT NULL,
+    returned_date DATE NULL
 );

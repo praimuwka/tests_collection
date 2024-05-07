@@ -2,6 +2,8 @@ package ru.praimuwka.dynamicatest.etl.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -9,14 +11,15 @@ import javax.persistence.Table;
 @Table(name = "books", schema = "public")
 public class Book {
     @Id
-    @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
-    @Column(name = "title", nullable = false)
-    private String title;
-    @Column(name = "author", nullable = false)
-    private String author;
-    @Column(name = "isbn", unique = true, nullable = false)
+    @Column(name = "isbn", length = 13, nullable = false)
     private String isbn;
+    @Column(name = "title", length = 255, nullable = false)
+    private String title;
+    @Column(name = "author", length = 255, nullable = false)
+    private String author;
 
     // Getters and Setters
     public Long getId() {
@@ -25,6 +28,14 @@ public class Book {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getIsbn() {
+        return isbn;
+    }
+
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
     }
 
     public String getTitle() {
@@ -41,13 +52,5 @@ public class Book {
 
     public void setAuthor(String author) {
         this.author = author;
-    }
-
-    public String getIsbn() {
-        return isbn;
-    }
-
-    public void setIsbn(String isbn) {
-        this.isbn = isbn;
     }
 }
