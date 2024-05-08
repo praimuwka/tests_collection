@@ -1,7 +1,5 @@
 package ru.praimuwka.dynamicatest.rest.models;
 
-import java.util.*;
-
 public class BorrowedBookRestObject {
     String clientName;
     String clientBirthday;
