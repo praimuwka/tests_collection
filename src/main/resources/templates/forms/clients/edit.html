@@ -1,0 +1,82 @@
+<html lang="ru"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header_footer :: head (title='Данные клиента')"/>
+<script src="/js/editors.js"></script>
+<body>
+<div id="layout">
+    <div id="menu"
+         th:replace="fragments/sections :: navbar"/>
+    <div id="main">
+        <div>
+            <h1 class="head row"
+                th:text="*{'Данные клиента #' + client.getId()}">Данные отдела</h1>
+        </div>
+        <form th:action="@{${'/clients/' + client.getId()}}"
+              th:object="${client}"
+              id="dataForm"
+              class="myform"
+              method="post">
+            <div>
+                <input th:field="*{id}"
+                       type="hidden">
+                <div class="row row-standart1 w3-row">
+                    <div class="w3-container w3-cell">
+                        <label class="label">Название</label>
+                    </div>
+                    <div class="w3-container w3-cell">
+                        <input th:field="*{fullName}"
+                               th:placeholder="'ФИО'"
+                               class="form_field w3-input"
+                               readonly="readonly">
+                    </div>
+                    <div class="w3-container w3-cell">
+                        <div th:if="${#fields.hasErrors('fullName')}"
+                             th:errors="*{fullName}">Name error
+                        </div>
+                    </div>
+                </div>
+                <div class="row row-standart1 w3-row">
+                    <div class="w3-container w3-cell">
+                        <label class="label">Дата рождения</label>
+                    </div>
+                    <div class="w3-container w3-cell">
+                        <input th:field="*{birthDate}"
+                               th:placeholder="'Дата рождения'"
+                               class="form_field w3-input "
+                               readonly="readonly">
+                        <!-- Hidden input for the formatted date -->
+                        <input type="hidden" th:value="${#dates.format(client.birthDate, 'dd.MM.yyyy')}">
+
+                    </div>
+                    <div class="w3-container w3-cell">
+                        <div th:if="${#fields.hasErrors('birthDate')}"
+                             th:errors="*{birthDate}">Birth date error
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div class="row row-standart1 controls"> <!--выпадающий список!-->
+            <button id="edit"
+                    type="button"
+                    onclick="turnEditOn()"
+                    class="pressme my-but"
+                    data-tooltip="Изменить данные">Редактировать
+            </button>
+            <button id="cancel"
+                    type="button"
+                    onclick="turnEditOff()"
+                    class="nopress my-but">Отмена
+            </button>
+            <button id="submit"
+                    form="dataForm"
+                    type="submit"
+                    class="pressme my-but"
+                    data-tooltip="Подтвердить изменения">
+                Сохранить
+            </button>
+        </div>
+    </div>
+</div>
+</body>
+</html>

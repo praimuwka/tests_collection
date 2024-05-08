@@ -30,7 +30,7 @@ public class Application {
 			.apis(RequestHandlerSelectors.basePackage("ru.praimuwka.dynamicatest.rest.controllers"))
 			.paths(PathSelectors.any())
 			.build()
-			.apiInfo(apiInfo()); // Completely Optional
+			.apiInfo(apiInfo());
 	}
 
 	private ApiInfo apiInfo() {

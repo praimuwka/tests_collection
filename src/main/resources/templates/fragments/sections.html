@@ -1,0 +1,16 @@
+<div th:fragment="navbar"
+     class="nav-menu">
+    <nav class="nav-menu__nav">
+        <ul>
+            <li class="menu-item">
+                <a th:href="@{${'/books'}}">Книги</a>
+            </li>
+            <li class="menu-item">
+                <a th:href="@{${'/clients'}}">Клиенты</a>
+            </li>
+            <li class="menu-item">
+                <a th:href="@{${'/bookOperations/register'}}">Выдача книг</a>
+            </li>
+        </ul>
+    </nav>
+</div>

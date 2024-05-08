@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ru"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header_footer :: head (title='Выдача книг')"/>
+<link href="/css/jquery-editable-select.css" rel="stylesheet">
+<script src="/js/jquery-editable-select.js"></script>
+<script src="/js/editors.js"></script>
+<body>
+<div id="layout">
+    <div id="menu"
+         th:replace="fragments/sections :: navbar"/>
+    <div id="main">
+        <div class="head row ">
+            <div class="page-head w3-show-inline-block">
+                <h1 class="page-header">Выдача книги</h1>
+                <h6 class="head-message row" th:text="${message}"></h6>
+            </div>
+        </div>
+        <form action="#" id="fake"></form>
+        <form class="myform" th:action="@{/register/issue}" th:object="${borrowBookForm}" method="post">
+            <div class="">
+                <div class="row row-standart1 ">
+                    <div class="w3-container w3-cell">
+                        <label class="label">Документ</label>
+                    </div>
+                    <div class="w3-container w3-cell">
+                        <input type="hidden" th:field="*{bookId}" class="editable-select-value">
+                        <select form="fake" th:field="*{bookId}" name="" class="form_field select-editable w3-select "
+                                th:placeholder="'(необязательно)'">
+                            <option th:each="book : ${bookData}" th:attr="value=${book.getId()}, id=${'book#' + book.getId()}"
+                                    th:text="${book.getId()} +' - ' + ${book.getTitle()}"></option>
+                        </select>
+                    </div>
+                    <div class="w3-container w3-cell">
+                        <div th:if="${#fields.hasErrors('bookId')}" th:errors="*{bookId}">Book id Error</div>
+                    </div>
+                </div>
+                <div class="row row-standart1 ">
+                    <div class="w3-container w3-cell">
+                        <label class="label">Отдел</label>
+                    </div>
+                    <div class="w3-container w3-cell">
+                        <input type="hidden" th:field="*{clientId}" class="editable-select-value">
+                        <select form="fake" th:field="*{clientId}" class="form_field select-editable w3-select">
+                            <option th:each="client : ${clientData}" th:attr="value=${client.getId()}"
+                                    th:text="${client.getFullName()}"></option>
+                        </select>
+                    </div>
+                    <div class="w3-container w3-cell">
+                        <div th:if="${#fields.hasErrors('clientId')}" th:errors="*{clientId}">Name Error</div>
+                    </div>
+                </div>
+            </div>
+            <div class="row row-standart1 controls"> <!--выпадающий список!-->
+                <button type="submit" class="pressme my-but" data-tooltip="Всплывающая подсказка">Готово</button>
+            </div>
+        </form>
+
+    </div>
+</div>
+<script>
+    $('.select-editable').editableSelect();
+</script>
+</body>
+</html>
+<!-- w3-btn w3-white w3-border w3-border-blue w3-round-->

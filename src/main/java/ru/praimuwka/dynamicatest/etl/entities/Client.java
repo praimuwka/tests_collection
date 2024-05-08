@@ -7,6 +7,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Pattern;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "clients", schema = "public")
@@ -17,6 +20,7 @@ public class Client {
     private Long id;
     @Column(name = "full_name", length = 255, nullable = false)
     private String fullName;
+    @DateTimeFormat(pattern = "dd.MM.yyyy")
     @Column(name = "birth_date")
     private Date birthDate;
 

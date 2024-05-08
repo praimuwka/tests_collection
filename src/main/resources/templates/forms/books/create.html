@@ -1,0 +1,67 @@
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header_footer :: head (title='Добавление книги')"/>
+<body>
+<div id="layout">
+    <div id="menu"
+         th:replace="fragments/sections :: navbar"/>
+    <div id="main">
+        <div>
+            <h1 class="head row">Добавление книги</h1>
+        </div>
+        <form class="myform" th:action="@{/books/create}" th:object="${book}" method="post">
+            <div>
+                <div class="row row-standart1 w3-row">
+                    <div class="w3-container w3-cell">
+                        <label class="label">Название</label>
+                    </div>
+                    <div class="w3-container w3-cell">
+                        <input th:field="*{title}"
+                               th:placeholder="'Название'"
+                               class="form_field w3-input">
+                    </div>
+                    <div class="w3-container w3-cell">
+                        <div th:if="${#fields.hasErrors('title')}"
+                             th:errors="*{title}">Name error
+                        </div>
+                    </div>
+                </div>
+                <div class="row row-standart1 w3-row">
+                    <div class="w3-container w3-cell">
+                        <label class="label">Автор</label>
+                    </div>
+                    <div class="w3-container w3-cell">
+                        <input th:field="*{author}"
+                               th:placeholder="'Автор'"
+                               class="form_field w3-input">
+                    </div>
+                    <div class="w3-container w3-cell">
+                        <div th:if="${#fields.hasErrors('author')}"
+                             th:errors="*{author}">Author error
+                        </div>
+                    </div>
+                </div>
+                <div class="row row-standart1 w3-row">
+                    <div class="w3-container w3-cell">
+                        <label class="label">ISBN</label>
+                    </div>
+                    <div class="w3-container w3-cell">
+                        <input th:field="*{isbn}"
+                               th:placeholder="'ISBN'"
+                               class="form_field w3-input">
+                    </div>
+                    <div class="w3-container w3-cell">
+                        <div th:if="${#fields.hasErrors('isbn')}"
+                             th:errors="*{isbn}">ISBN error
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row row-standart1 controls"> <!--выпадающий список!-->
+                <button type="submit" class="pressme my-but" data-tooltip="Добавить">Добавить
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

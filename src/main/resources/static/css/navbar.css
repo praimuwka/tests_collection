@@ -1,0 +1,41 @@
+.nav-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 172px;
+    height: 100%;
+    background-color: #333;
+    color: white;
+    transition: width 0.3s ease;
+    z-index: 100;
+}
+
+.nav-menu ul {
+    margin-top: 60px;
+}
+
+.nav-menu ul li {
+    margin-top: 20px;
+}
+
+.nav-menu__nav {
+    padding: 20px;
+}
+
+.nav-menu__nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+.nav-menu__nav ul li {
+    margin-bottom: 10px;
+}
+
+.nav-menu__nav ul li a {
+    color: white;
+    text-decoration: none;
+}
+
+.menu-item {
+    font-size: 20pt;
+}

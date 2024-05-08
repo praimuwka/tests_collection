@@ -2,7 +2,7 @@
 CREATE TABLE IF NOT EXISTS books
 (
     id     SERIAL PRIMARY KEY,
-    isbn   VARCHAR(13)  NOT NULL,
+    isbn   VARCHAR(13)  NOT NULL UNIQUE,
     title  VARCHAR(255) NOT NULL,
     author VARCHAR(255) NOT NULL
 );

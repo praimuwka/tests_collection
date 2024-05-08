@@ -1,0 +1,52 @@
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header_footer :: head (title='Добавление книги')"/>
+<body>
+<div id="layout">
+    <div id="menu"
+         th:replace="fragments/sections :: navbar"/>
+    <div id="main">
+        <div>
+            <h1 class="head row">Добавление клиента</h1>
+        </div>
+        <form class="myform" th:action="@{/clients/create}" th:object="${client}" method="post">
+            <div>
+                <div class="row row-standart1 w3-row">
+                    <div class="w3-container w3-cell">
+                        <label class="label">Название</label>
+                    </div>
+                    <div class="w3-container w3-cell">
+                        <input th:field="*{fullName}"
+                               th:placeholder="'ФИО'"
+                               class="form_field w3-input">
+                    </div>
+                    <div class="w3-container w3-cell">
+                        <div th:if="${#fields.hasErrors('fullName')}"
+                             th:errors="*{fullName}">Name error
+                        </div>
+                    </div>
+                </div>
+                <div class="row row-standart1 w3-row">
+                    <div class="w3-container w3-cell">
+                        <label class="label">Дата рождения</label>
+                    </div>
+                    <div class="w3-container w3-cell">
+                        <input th:field="*{birthDate}"
+                               th:placeholder="'Дата рождения'"
+                               class="form_field w3-input ">
+                    </div>
+                    <div class="w3-container w3-cell">
+                        <div th:if="${#fields.hasErrors('birthDate')}"
+                             th:errors="*{birthDate}">Birth date error
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row row-standart1 controls"> <!--выпадающий список!-->
+                <button type="submit" class="pressme my-but" data-tooltip="Добавить">Добавить
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

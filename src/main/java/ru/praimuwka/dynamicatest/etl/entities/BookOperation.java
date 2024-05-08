@@ -13,6 +13,15 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "book_operations", schema = "public")
 public class BookOperation {
+    public BookOperation() {
+    }
+
+    public BookOperation(final Date borrowedDate, final Book book, final Client client) {
+        this.borrowedDate = borrowedDate;
+        this.book = book;
+        this.client = client;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
