@@ -27,7 +27,8 @@
                         <input th:field="*{title}"
                                th:placeholder="'ФИО'"
                                class="form_field w3-input"
-                               readonly="readonly">
+                               readonly="readonly"
+                               maxlength="255">
                     </div>
                     <div class="w3-container w3-cell">
                         <div th:if="${#fields.hasErrors('title')}"
@@ -43,7 +44,8 @@
                         <input th:field="*{author}"
                                th:placeholder="'Автор'"
                                class="form_field w3-input"
-                               readonly="readonly">
+                               readonly="readonly"
+                               maxlength="255">
                     </div>
                     <div class="w3-container w3-cell">
                         <div th:if="${#fields.hasErrors('author')}"
@@ -59,7 +61,8 @@
                         <input th:field="*{isbn}"
                                th:placeholder="'ISBN'"
                                class="form_field w3-input"
-                               readonly="readonly">
+                               readonly="readonly"
+                               maxlength="13">
                     </div>
                     <div class="w3-container w3-cell">
                         <div th:if="${#fields.hasErrors('isbn')}"

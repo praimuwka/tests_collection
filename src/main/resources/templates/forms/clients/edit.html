@@ -27,7 +27,8 @@
                         <input th:field="*{fullName}"
                                th:placeholder="'ФИО'"
                                class="form_field w3-input"
-                               readonly="readonly">
+                               readonly="readonly"
+                               maxlength="255">
                     </div>
                     <div class="w3-container w3-cell">
                         <div th:if="${#fields.hasErrors('fullName')}"
@@ -43,7 +44,8 @@
                         <input th:field="*{birthDate}"
                                th:placeholder="'Дата рождения'"
                                class="form_field w3-input "
-                               readonly="readonly">
+                               readonly="readonly"
+                               maxlength="10">
                         <!-- Hidden input for the formatted date -->
                         <input type="hidden" th:value="${#dates.format(client.birthDate, 'dd.MM.yyyy')}">
 

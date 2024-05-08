@@ -120,13 +120,17 @@ select.form_field:read-only::-ms-expand {
 }
 
 .pressme {
-    background: #2DBCD0;
-    border-color: #00444D;
-    color: #00444D;
+    background: #333333;
+    border-color: gray;
+    color: white;
 }
 
 .nopress {
     background: #DDFBFF;
     border-color: #22555C;
     color: #22555C;
+}
+
+.select-editable {
+    box-shadow: 0 0 0 1px black !important;
 }

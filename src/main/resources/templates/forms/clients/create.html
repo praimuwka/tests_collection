@@ -17,7 +17,8 @@
                     <div class="w3-container w3-cell">
                         <input th:field="*{fullName}"
                                th:placeholder="'ФИО'"
-                               class="form_field w3-input">
+                               class="form_field w3-input"
+                               maxlength="255">
                     </div>
                     <div class="w3-container w3-cell">
                         <div th:if="${#fields.hasErrors('fullName')}"
@@ -32,7 +33,8 @@
                     <div class="w3-container w3-cell">
                         <input th:field="*{birthDate}"
                                th:placeholder="'Дата рождения'"
-                               class="form_field w3-input ">
+                               class="form_field w3-input "
+                               maxlength="10">
                     </div>
                     <div class="w3-container w3-cell">
                         <div th:if="${#fields.hasErrors('birthDate')}"
