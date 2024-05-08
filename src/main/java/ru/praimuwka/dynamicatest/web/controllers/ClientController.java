@@ -60,12 +60,11 @@ public class ClientController {
 
     @PostMapping("/{id}")
     public String editClient(@PathVariable Long id, @Valid Client client, BindingResult br, RedirectAttributes ra, Model model) {
-        if (client.getId()!= null && clientRepository.findById(client.getId()).isPresent()) {
-            clientRepository.save(client);
-        } else {
+        if (client.getId() == null || !clientRepository.findById(client.getId()).isPresent()) {
             ra.addFlashAttribute("flashMessage", "Клиент не найден");
             return "redirect:/clients";
         }
+        clientRepository.save(client);
         return "forms/clients/edit";
     }
 }
