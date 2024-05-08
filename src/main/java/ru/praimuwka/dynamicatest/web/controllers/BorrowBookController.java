@@ -16,7 +16,7 @@ import ru.praimuwka.dynamicatest.etl.entities.Client;
 import ru.praimuwka.dynamicatest.etl.repositories.BookOperationRepository;
 import ru.praimuwka.dynamicatest.etl.repositories.BookRepository;
 import ru.praimuwka.dynamicatest.etl.repositories.ClientRepository;
-import ru.praimuwka.dynamicatest.web.models.BorrowBookForm;
+import ru.praimuwka.dynamicatest.web.forms.BorrowBookForm;
 
 @Controller
 @RequestMapping("/bookOperations")
@@ -37,16 +37,15 @@ public class BorrowBookController {
     public String issueBookForm(BorrowBookForm form, Model model) {
         model.addAttribute("clientData", clientRepository.findAll());
         model.addAttribute("bookData", bookRepository.findAll());
-        return "forms/bookOperations/register";
+        return "forms/bookOperations/issue";
     }
 
     @PostMapping("/register")
     public String registerBookIssue(@Valid BorrowBookForm form, BindingResult bindingResult, Model model) {
-        model.addAttribute("clientData", clientRepository.findAll());
         if (!bindingResult.hasErrors()) {
             Optional<Book> book = bookRepository.findById(form.getBookId());
             Optional<Client> client = clientRepository.findById(form.getClientId());
-            if (!book.isPresent() || !client.isPresent()) {
+            if (!book.isPresent() ||!client.isPresent()) {
                 model.addAttribute("message", "Ошибка добавления");
             } else {
                 bookOperationRepository.save(new BookOperation(new Date(), book.get(), client.get()));
@@ -55,6 +54,8 @@ public class BorrowBookController {
                 model.addAttribute("form", form);
             }
         }
+        model.addAttribute("clientData", clientRepository.findAll());
         return issueBookForm(form, model);
     }
+
 }

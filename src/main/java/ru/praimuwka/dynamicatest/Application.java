@@ -1,5 +1,7 @@
 package ru.praimuwka.dynamicatest;
 
+import java.text.SimpleDateFormat;
+
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -23,6 +25,10 @@ public class Application {
 		SpringApplication.run(Application.class, args);
 	}
 
+	@Bean
+	public SimpleDateFormat dateFormat() {
+		return new SimpleDateFormat("dd.MM.yyyy");
+	}
 	@Bean
 	public Docket api() {
 		return new Docket(DocumentationType.SWAGGER_2)
