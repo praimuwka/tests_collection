@@ -1,15 +1,13 @@
 package ru.praimuwka.konustest.rest.dto;
 
-import java.util.*;
-
 import ru.praimuwka.konustest.etl.models.Author;
 import ru.praimuwka.konustest.etl.models.Book;
 
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
-import lombok.Data;
+import lombok.Getter;
 
-@Data
+@Getter
 public class BookDto {
     @Pattern(regexp = "^(\\d{10})(\\d{3})?$")
     private String isbn;

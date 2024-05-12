@@ -6,35 +6,17 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import io.swagger.v3.oas.annotations.info.Info;
 
-// @EnableSwagger2
 @SpringBootApplication
-@EnableJpaRepositories("ru.praimuwka.konustest.etl.repositories")
+@OpenAPIDefinition(info = @Info(title = "Konus library REST API", version = "1.0",
+                                description = "<h3>Добро пожаловать! Поиграемся с апишками ? \uD83D\uDE09</h3>"))
 public class KonusApp {
 	public static void main(String[] args) {
 		SpringApplication.run(KonusApp.class, args);
 	}
-
-	// @Bean
-	// public Docket api() {
-	// 	return new Docket(DocumentationType.SWAGGER_2)
-	// 		.select()
-	// 		.apis(RequestHandlerSelectors.basePackage("ru.praimuwka.konustest.rest.controllers"))
-	// 		.paths(PathSelectors.any())
-	// 		.build()
-	// 		.apiInfo(apiInfo());
-	// }
-	//
-	// private ApiInfo apiInfo() {
-	// 	return new ApiInfoBuilder()
-	// 		.title("Library API")
-	// 		.description("Konus Test API")
-	// 		.version("1.0")
-	// 		.contact(new Contact("Kir Bush", "https://github.com/praimuwka", "kbuschuev@gmail.com"))
-	// 		.build();
-	// }
 
 	@Bean
 	public ObjectMapper objectMapper() {

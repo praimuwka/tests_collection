@@ -1,8 +1,9 @@
-package ru.praimuwka.konustest.services;
+package ru.praimuwka.konustest.etl.services;
 
 import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import ru.praimuwka.konustest.etl.models.Author;
 import ru.praimuwka.konustest.etl.models.Book;
@@ -11,6 +12,8 @@ import ru.praimuwka.konustest.etl.repositories.BookRepository;
 
 @Service
 public class BookService {
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
     @Autowired
     private BookRepository bookRepository;
     @Autowired
@@ -56,11 +59,35 @@ public class BookService {
         return bookRepository.findById(id).orElse(null);
     }
 
-    // public List<Book> findBooksByTitleOrIsbnOrAuthor(String title, Integer isbn, Author author) {
-    //     return bookRepository.findBooksByTitleOrIsbnOrAuthor(title, isbn, author);
-    // }
-
     public void deleteBook(Long id) {
         bookRepository.deleteById(id);
+    }
+
+    public Optional<List<Book>> findBooksByParams(String isbn, String title, Integer authorId) {
+        if (Objects.isNull(isbn) && Objects.isNull(title) && Objects.isNull(authorId)){
+            return Optional.empty();
+        }
+        List<String> params = new ArrayList<>();
+        addParamIfNotNull("isbn", isbn, params);
+        addParamIfNotNull("author_id", authorId, params);
+        addParamIfNotNull("title", String.join("", "%", title, "%"), params, "ILIKE");
+        String sqlTemplate =
+            "SELECT b.id, b.isbn, b.title, b.author_id, a.full_name author_full_name "
+            + "FROM books b, authors a "
+            + "WHERE b.author_id = a.id AND %s";
+        String sql = String.format(sqlTemplate, String.join(" AND ", params));
+        return Optional.of(jdbcTemplate.query(sql, Book.getMapper()));
+    }
+
+    private List<String> addParamIfNotNull(String paramName, Object paramValue, List<String> params){
+        return addParamIfNotNull(paramName, paramValue, params, "=");
+    }
+
+    private List<String> addParamIfNotNull(String paramName, Object paramValue, List<String> params, String compareSymbol) {
+        if (Objects.nonNull(paramValue)) {
+            paramValue = (paramValue instanceof String) ? String.format("'%s'", paramValue) : paramValue.toString();
+            params.add(String.format("%s %s %s", paramName, compareSymbol,  paramValue));
+        }
+        return params;
     }
 }

@@ -5,9 +5,9 @@ import java.util.*;
 import ru.praimuwka.konustest.etl.models.Author;
 
 import jakarta.validation.constraints.Size;
-import lombok.Data;
+import lombok.Getter;
 
-@Data
+@Getter
 public class AuthorDto {
     @Size(max = 255)
     String fullName;

@@ -1,4 +1,4 @@
-package ru.praimuwka.konustest.services;
+package ru.praimuwka.konustest.etl.services;
 
 import java.util.*;
 
