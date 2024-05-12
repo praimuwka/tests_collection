@@ -1,12 +1,13 @@
 CREATE TABLE authors
 (
-    id       SERIAL PRIMARY KEY,
-    fullname VARCHAR(255) NOT NULL
+    id        SERIAL PRIMARY KEY,
+    full_name VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE books
 (
-    isbn      VARCHAR(13) PRIMARY KEY,
+    id        BIGSERIAL PRIMARY KEY,
+    isbn      BIGINT UNIQUE,
     title     VARCHAR(255) NOT NULL,
     author_id INTEGER REFERENCES authors (id)
 );

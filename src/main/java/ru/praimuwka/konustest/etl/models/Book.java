@@ -9,18 +9,21 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Getter
-@Setter
+@Data
 @Entity
 @Table(name = "books")
+@NoArgsConstructor
+@AllArgsConstructor
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Pattern(regexp = "(?=(?:\\D*\\d){10}(?:(?:\\D*\\d){3})?$)")
-    private Integer isbn;
+    private Long id;
+
+    private Long isbn;
     @Size(max = 255)
     private String title;
 
