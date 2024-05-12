@@ -31,7 +31,7 @@
 
 **Сборка docker-контенера**: Запустите ```docker compose build```  в директории проекта (предварительно выполните сборку)  
 
-**REST API**: Перейдите по ссылке ```http://localhost:8087/swagger-ui/index.html``` чтобы ознакомиться с OpenAPI документацией и протестировать API через Swagger 
+**REST API**: Перейдите по ссылке ```http://localhost:8087/swagger-ui/index.html``` чтобы ознакомиться с документацией OpenAPI и протестировать API через Swagger 
 
 
 
