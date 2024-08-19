@@ -16,13 +16,11 @@ public class AdapterController {
     WeatherService weatherService;
     BService bService;
 
+    @Autowired
     public AdapterController(final WeatherService weatherService, final BService bService) {
         this.weatherService = weatherService;
         this.bService = bService;
     }
-
-    @Autowired
-
 
     @PostMapping("/adapter/post")
     public ResponseEntity<Void> modifyMessageAndSend(@RequestBody AServiceDto input) {
