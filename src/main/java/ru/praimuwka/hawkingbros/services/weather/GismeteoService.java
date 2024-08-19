@@ -1,55 +1,48 @@
 package ru.praimuwka.hawkingbros.services.weather;
 
-import java.net.http.HttpHeaders;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.naming.ServiceUnavailableException;
 
 import org.springframework.context.annotation.Primary;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.MediaType;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import ru.praimuwka.hawkingbros.services.weather.dto.GismeteoTemperature;
 import ru.praimuwka.hawkingbros.tools.Coordinates;
+import ru.praimuwka.hawkingbros.tools.StringUtils;
 
 @Primary
 @Service
 public class GismeteoService implements WeatherService {
     private final String token = "56b30cb255.3443075";
-    private final RestTemplate restTemplate;
-
-    public GismeteoService() {
-        restTemplate = new RestTemplate();
-        restTemplate.setDefaultUriVariables(
-            new HashMap<String, String>() {{
-                put("apiGismeteo", "https://api.gismeteo.ru/");
-            }}
-        );
-    }
+    Pattern pattern = Pattern.compile("(\"air\":\")(.*?)(\"[\\s\\S]?,[\\s\\S]?\"comfort\")");
 
     @Override
-    public int getTemperature(final Coordinates coordinates) /*throws ServiceUnavailableException*/ {
-        // var requestBody = new HashMap<String, String>() {{
-        //     put("latitude", String.valueOf(coordinates.getLatitude()));
-        //     put("longitude", String.valueOf(coordinates.getLongitude()));
-        // }};
-        //
-        // RestTemplate restTemplate = new RestTemplate();
-        //
-        // HttpHeaders headers = new HttpHeaders();
-        // headers.setContentType(MediaType.APPLICATION_JSON);
-        // headers.add("Accept-Encoding", "gzip");
-        // headers.add("Accept-Encoding", "gzip");
-        // HttpEntity<GismeteoTemperature> requestEntity = new HttpEntity<>(requestBody, headers);
-        //
-        // String url = "http://example.com/api/endpoint"; // Replace with your actual URL
-        //
-        // try {
-        //     GismeteoTemperature response = restTemplate.postForObject(url, requestEntity, GismeteoTemperature.class);
-        //     System.out.println("Response: " + response.getValue1() + ", " + response.getValue2());
-        // } catch (Exception e) {
-        //     System.err.println("Error occurred: " + e.getMessage());
-        // }
-        return 0;
+    public int getTemperature(final Coordinates coordinates) throws ServiceUnavailableException {
+        RestTemplate restTemplate = new RestTemplate();
+
+        String url = "https://api.gismeteo.ru/";
+
+        Map<String, Object> params = new HashMap<>();
+        params.put("longitude", StringUtils.valueOfDoubleWithDot(coordinates.getLongitude()));
+        params.put("latitude", StringUtils.valueOfDoubleWithDot(coordinates.getLatitude()));
+
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.add("X-Gismeteo-Token", token);
+        httpHeaders.add("Accept-Encoding", "deflate");
+
+        ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, null, String.class, params, httpHeaders);
+
+        if (response.getStatusCode().is2xxSuccessful()) {
+            String responseBody = response.getBody();
+            Matcher matcher = pattern.matcher(responseBody);
+            if (matcher.find()) {
+                return Integer.parseInt(matcher.group(1));
+            }
+        }
+        throw new ServiceUnavailableException("Cant read response");
     }
 }
