@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class BServiceDto {
+public class MsgB {
     private String txt;
     private String createdDt;
     private Integer currentTemp;

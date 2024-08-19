@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class AServiceDto {
+public class MsgA {
         private String msg;
         private Language lng;
         private Coordinates coordinates;

@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ru.praimuwka.hawkingbros.controllers.dto.AServiceDto;
-import ru.praimuwka.hawkingbros.controllers.dto.BServiceDto;
+import ru.praimuwka.hawkingbros.controllers.dto.MsgA;
+import ru.praimuwka.hawkingbros.controllers.dto.MsgB;
 import ru.praimuwka.hawkingbros.services.BService;
 import ru.praimuwka.hawkingbros.services.weather.WeatherService;
 import ru.praimuwka.hawkingbros.tools.DateTimeUtils;
@@ -37,16 +37,16 @@ public class AdapterController {
         @ApiResponse(responseCode = "400", description = "Некорректные входные данные"),
         @ApiResponse(responseCode = "504", description = "Сервис недоступен"),
     })
-    public ResponseEntity<Void> modifyMessageAndSend(@RequestBody AServiceDto input) {
+    public ResponseEntity<Void> modifyMessageAndSend(@RequestBody MsgA input) {
         if (!input.getLng().equals(Language.RUSSIAN)) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         if (input.getMsg().isBlank()) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        BServiceDto toSend;
+        MsgB toSend;
         try {
-            toSend = new BServiceDto(
+            toSend = new MsgB(
                 input.getMsg(),
                 DateTimeUtils.getCurrentTimeUtcFormatted(),
                 weatherService.getTemperature(input.getCoordinates())
