@@ -18,4 +18,6 @@
 **REST API**: Перейдите по ссылке ```http://localhost:8080/swagger-ui/index.html``` чтобы ознакомиться с документацией OpenAPI и протестировать API через Swagger 
 ![](doc/readme_imgs/img1.jpeg)
 
+[Документация](doc/readme_imgs/img1.jpeg) также доступна в формате OpenAPI. 
+
 
