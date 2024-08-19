@@ -15,9 +15,8 @@
 
 **Сборка**: Запустите ```mvn package``` в директории проекта
 
-**REST API**: Перейдите по ссылке ```http://localhost:8080/swagger-ui/index.html``` чтобы ознакомиться с документацией OpenAPI и протестировать API через Swagger 
-![](doc/readme_imgs/img1.jpeg)
+**REST API**: Перейдите по ссылке ```http://localhost:8080/swagger-ui/index.html``` чтобы ознакомиться с документацией OpenAPI и протестировать API через Swagger
 
-[Документация](doc/readme_imgs/img1.jpeg) также доступна в формате OpenAPI. 
+[Документация](doc/OpenAPI_docs.txt) также доступна в формате OpenAPI. 
 
 
