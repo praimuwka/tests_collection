@@ -36,7 +36,7 @@ public class AdapterController {
         @ApiResponse(responseCode = "204", description = "Язык не обслуживается"),
         @ApiResponse(responseCode = "400", description = "Некорректные входные данные"),
         @ApiResponse(responseCode = "504", description = "Сервис недоступен"),
-        })
+    })
     public ResponseEntity<Void> modifyMessageAndSend(@RequestBody AServiceDto input) {
         if (!input.getLng().equals(Language.RUSSIAN)) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
