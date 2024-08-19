@@ -16,6 +16,6 @@
 **Сборка**: Запустите ```mvn package``` в директории проекта
 
 **REST API**: Перейдите по ссылке ```http://localhost:8080/swagger-ui/index.html``` чтобы ознакомиться с документацией OpenAPI и протестировать API через Swagger 
-![](doc/img1.jpeg)
+![](doc/readme_imgs/img1.jpeg)
 
 
