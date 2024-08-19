@@ -18,10 +18,10 @@
 1. Сервисов с погодой может стать больше
 2. lng - это enum ["ru", "en", "es"]
 
-Входные данные в RAML:
+Входные данные в RAML:  
 ![](doc/img/input_example.png)
 
-Выходные данные в RAML:
+Выходные данные в RAML:  
 ![](doc/img/output_example.png)
 
 ## Результат
